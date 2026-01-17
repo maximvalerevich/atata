@@ -158,7 +158,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm">
+      <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border shadow-sm">
         <div className="container">
           <div className="flex items-center justify-between py-4">
             {/* Logo and Slogan */}
@@ -273,14 +273,16 @@ export default function Home() {
                 <div className="h-36 overflow-hidden rounded-t-lg">
                   <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
                 </div>
-                <CardHeader className="pb-3">
+                <CardHeader className="pb-2 pt-3 px-4">
                   <CardTitle className="text-base">{service.title}</CardTitle>
-                  <CardDescription className="text-sm">{service.shortDesc}</CardDescription>
+                  <CardDescription className="text-xs leading-tight">{service.shortDesc}</CardDescription>
                 </CardHeader>
-                <CardContent className="flex-grow pt-0 pb-3">
-                  <p className="text-xl font-bold text-primary">{service.price}</p>
+                <CardContent className="flex-grow pt-0 pb-2 px-4">
+                  <div className="flex items-baseline gap-1">
+                    <p className="text-lg font-bold text-primary">{service.price}</p>
+                  </div>
                 </CardContent>
-                <CardFooter className="pt-0">
+                <CardFooter className="pt-0 pb-3 px-4">
                   <Button 
                     variant="outline" 
                     size="sm"
