@@ -158,7 +158,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border shadow-sm">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm">
         <div className="container">
           <div className="flex items-center justify-between py-4">
             {/* Logo and Slogan */}
@@ -200,7 +200,7 @@ export default function Home() {
               <a href="tel:+73832910176" className="text-sm font-semibold hover:text-primary transition-colors">
                 291-01-76
               </a>
-              <Button onClick={() => setContactFormOpen(true)} size="sm" className="bg-primary hover:bg-primary/90">
+              <Button onClick={() => setContactFormOpen(true)} size="sm">
                 Вызвать специалиста
               </Button>
             </div>
@@ -231,7 +231,7 @@ export default function Home() {
                 <a href="tel:+73832910176" className="font-semibold text-primary">
                   291-01-76
                 </a>
-                <Button onClick={() => { setContactFormOpen(true); setMobileMenuOpen(false); }} className="w-full bg-primary hover:bg-primary/90">
+                <Button onClick={() => { setContactFormOpen(true); setMobileMenuOpen(false); }} className="w-full">
                   Получить консультацию
                 </Button>
               </nav>
@@ -254,7 +254,7 @@ export default function Home() {
               Проектируем, монтируем и обслуживаем системы противопожарной и охранной защиты с 2016 года. 
               Гарантируем соблюдение законодательства и оперативный монтаж от 1 дня.
             </p>
-            <Button size="lg" onClick={() => setContactFormOpen(true)} className="text-lg px-8 bg-primary hover:bg-primary/90">
+            <Button size="lg" onClick={() => setContactFormOpen(true)} className="text-lg px-8">
               Получить консультацию
             </Button>
           </div>
@@ -273,18 +273,18 @@ export default function Home() {
                 <div className="h-36 overflow-hidden rounded-t-lg">
                   <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
                 </div>
-                <CardHeader className="pb-2 pt-2 px-3">
+                <CardHeader className="pb-3">
                   <CardTitle className="text-base">{service.title}</CardTitle>
                   <CardDescription className="text-sm">{service.shortDesc}</CardDescription>
                 </CardHeader>
-                <CardContent className="flex-grow pt-0 pb-2 px-3">
+                <CardContent className="flex-grow pt-0 pb-3">
                   <p className="text-xl font-bold text-primary">{service.price}</p>
                 </CardContent>
-                <CardFooter className="pt-0 pb-2 px-3">
+                <CardFooter className="pt-0">
                   <Button 
                     variant="outline" 
                     size="sm"
-                    className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                    className="w-full"
                     onClick={() => setSelectedService(service)}
                   >
                     Подробнее
@@ -533,7 +533,7 @@ export default function Home() {
             
             <Button 
               type="submit" 
-              className="w-full bg-primary hover:bg-primary/90"
+              className="w-full"
               disabled={submitContactMutation.isPending}
             >
               {submitContactMutation.isPending ? "Отправка..." : "Отправить заявку"}
