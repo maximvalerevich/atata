@@ -133,11 +133,18 @@ export default function Home() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.phone.trim()) {
-      toast.error("Пожалуйста, заполните все поля");
+    if (!formData.name.trim()) {
+      toast.error("Пожалуйста, введите имя");
       return;
     }
-    submitContactMutation.mutate(formData);
+    if (formData.phone.length !== 10) {
+      toast.error("Введите 10 цифр номера телефона");
+      return;
+    }
+    submitContactMutation.mutate({
+      name: formData.name,
+      phone: `+7${formData.phone}`,
+    });
   };
 
   const scrollToSection = (id: string) => {
@@ -230,7 +237,7 @@ export default function Home() {
                   291-01-76
                 </a>
                 <Button onClick={() => { setContactFormOpen(true); setMobileMenuOpen(false); }} className="w-full">
-                  Вызвать специалиста
+                  Получить консультацию
                 </Button>
               </nav>
             </div>
@@ -253,7 +260,7 @@ export default function Home() {
               Гарантируем соблюдение законодательства и оперативный монтаж от 1 дня.
             </p>
             <Button size="lg" onClick={() => setContactFormOpen(true)} className="text-lg px-8">
-              Получить бесплатную консультацию
+              Получить консультацию
             </Button>
           </div>
         </div>
@@ -427,11 +434,7 @@ export default function Home() {
               <div className="space-y-2">
                 <div className="flex gap-2">
                   <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                  <a href="mailto:atarinfo@yandex.ru" className="hover:text-primary transition-colors">atarinfo@yandex.ru</a>
-                </div>
-                <div className="flex gap-2">
-                  <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                  <a href="mailto:novitsky.ip@mail.ru" className="hover:text-primary transition-colors">novitsky.ip@mail.ru</a>
+                  <a href="mailto:info@atar.group" className="hover:text-primary transition-colors">info@atar.group</a>
                 </div>
               </div>
             </div>
@@ -493,7 +496,7 @@ export default function Home() {
       <Dialog open={contactFormOpen} onOpenChange={setContactFormOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Вызвать специалиста</DialogTitle>
+            <DialogTitle>Получить консультацию</DialogTitle>
             <DialogDescription>
               Оставьте ваши контактные данные, и мы свяжемся с вами в ближайшее время
             </DialogDescription>
@@ -513,14 +516,23 @@ export default function Home() {
             
             <div>
               <Label htmlFor="phone">Телефон</Label>
-              <Input
-                id="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                placeholder="+7 (___) ___-__-__"
-                required
-              />
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium px-3 py-2 bg-muted rounded-md">+7</span>
+                <Input
+                  id="phone"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, "");
+                    if (value.length <= 10) {
+                      setFormData({ ...formData, phone: value });
+                    }
+                  }}
+                  placeholder="9001234567"
+                  maxLength={10}
+                  required
+                />
+              </div>
             </div>
             
             <Button 

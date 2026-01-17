@@ -37,7 +37,7 @@ describe("contact.submit", () => {
 
     const result = await caller.contact.submit({
       name: "Иван Петров",
-      phone: "+7 (923) 123-45-67",
+      phone: "+79231234567",
     });
 
     expect(result).toEqual({ success: true });
@@ -54,7 +54,7 @@ describe("contact.submit", () => {
     const body = JSON.parse(callArgs[1].body);
     expect(body.chat_id).toBe("test-chat-id");
     expect(body.text).toContain("Иван Петров");
-    expect(body.text).toContain("+7 (923) 123-45-67");
+    expect(body.text).toContain("+79231234567");
     expect(body.parse_mode).toBe("Markdown");
   });
 
@@ -80,6 +80,29 @@ describe("contact.submit", () => {
         phone: "",
       })
     ).rejects.toThrow();
+  });
+
+  it("should accept phone in +7XXXXXXXXXX format", async () => {
+    const ctx = createTestContext();
+    const caller = appRouter.createCaller(ctx);
+
+    process.env.TELEGRAM_BOT_TOKEN = "test-bot-token";
+    process.env.TELEGRAM_CHAT_ID = "test-chat-id";
+
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ ok: true }),
+    });
+
+    const result = await caller.contact.submit({
+      name: "Иван Петров",
+      phone: "+79001234567",
+    });
+
+    expect(result).toEqual({ success: true });
+    const callArgs = mockFetch.mock.calls[0];
+    const body = JSON.parse(callArgs[1].body);
+    expect(body.text).toContain("+79001234567");
   });
 
   it("should throw error when Telegram credentials are missing", async () => {
