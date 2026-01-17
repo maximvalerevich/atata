@@ -190,9 +190,6 @@ export default function Home() {
               <button onClick={() => scrollToSection("about")} className="text-sm font-medium hover:text-primary transition-colors">
                 О компании
               </button>
-              <button onClick={() => scrollToSection("clients")} className="text-sm font-medium hover:text-primary transition-colors">
-                Кейсы
-              </button>
               <button onClick={() => scrollToSection("contacts")} className="text-sm font-medium hover:text-primary transition-colors">
                 Контакты
               </button>
@@ -227,9 +224,7 @@ export default function Home() {
                 <button onClick={() => scrollToSection("about")} className="text-left font-medium">
                   О компании
                 </button>
-                <button onClick={() => scrollToSection("clients")} className="text-left font-medium">
-                  Кейсы
-                </button>
+
                 <button onClick={() => scrollToSection("contacts")} className="text-left font-medium">
                   Контакты
                 </button>
@@ -253,7 +248,7 @@ export default function Home() {
         <div className="container relative z-10 py-20">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Комплексная безопасность вашего бизнеса в Новосибирске
+              Комплексная безопасность вашего бизнеса
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-8">
               Проектируем, монтируем и обслуживаем системы противопожарной и охранной защиты с 2016 года. 
@@ -272,22 +267,23 @@ export default function Home() {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Наши ключевые услуги</h2>
           <p className="text-center text-muted-foreground mb-12">Мы закрываем все вопросы безопасности под ключ</p>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {services.map((service) => (
               <Card key={service.id} className="flex flex-col hover:shadow-lg transition-shadow">
-                <div className="h-48 overflow-hidden rounded-t-lg">
+                <div className="h-36 overflow-hidden rounded-t-lg">
                   <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
                 </div>
-                <CardHeader>
-                  <CardTitle className="text-lg">{service.title}</CardTitle>
-                  <CardDescription>{service.shortDesc}</CardDescription>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base">{service.title}</CardTitle>
+                  <CardDescription className="text-sm">{service.shortDesc}</CardDescription>
                 </CardHeader>
-                <CardContent className="flex-grow">
-                  <p className="text-2xl font-bold text-primary">{service.price}</p>
+                <CardContent className="flex-grow pt-0 pb-3">
+                  <p className="text-xl font-bold text-primary">{service.price}</p>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="pt-0">
                   <Button 
                     variant="outline" 
+                    size="sm"
                     className="w-full"
                     onClick={() => setSelectedService(service)}
                   >
@@ -387,7 +383,7 @@ export default function Home() {
             Мы успешно реализовали проекты для крупнейших организаций региона
           </p>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {clients.map((client, index) => (
               <Card key={index} className="text-center p-6 hover:shadow-md transition-shadow">
                 <p className="font-medium">{client}</p>
@@ -494,7 +490,7 @@ export default function Home() {
 
       {/* Contact Form Modal */}
       <Dialog open={contactFormOpen} onOpenChange={setContactFormOpen}>
-        <DialogContent>
+        <DialogContent className="p-8">
           <DialogHeader>
             <DialogTitle>Получить консультацию</DialogTitle>
             <DialogDescription>
@@ -502,7 +498,7 @@ export default function Home() {
             </DialogDescription>
           </DialogHeader>
           
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <Label htmlFor="name">Имя</Label>
               <Input
